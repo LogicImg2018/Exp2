@@ -2,10 +2,11 @@ import tensorflow as tf
 import numpy as np
 from alexnet import AlexNet 
 
-from load_data import get_data
-from load_data import get_batch_data
+from load_data import Load_data
 
-train_data, test_data, train_label, test_label = get_data();
+data = Load_data("data");
+
+train_data, test_data, train_label, test_label = data.get_data();
 
 
 learning_rate = 0.01
@@ -48,9 +49,8 @@ with tf.Session() as sess:
        
         sess.run(optimizer, feed_dict={x: batch_xs, y: batch_ys, keep_prob: dropout})
         if step % display_step == 0:
-            # 计算精度
+           
             acc = sess.run(accuracy, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.})
-            # 计算损失值
             loss = sess.run(cost, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.})
             print ("Iter " + str(step*batch_size) + ", Minibatch Loss= " + "{:.6f}".format(loss) + ", Training Accuracy = " + "{:.5f}".format(acc))
         step += 1
