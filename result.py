@@ -16,7 +16,7 @@ class Result(object):
 	def get_data(self):
 		return self.test_data
 
-	def get_result(pre):
+	def get_result(self,pre):
 		"""
 		pre 为test中顺序的预测结果返回值是[50]的向量，
 		因此 pre是[n*50]的一个二维数组，
