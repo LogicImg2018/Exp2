@@ -1,23 +1,27 @@
+# -*- coding: utf-8 -*-
 import tensorflow as tf
 import numpy as np
 from alexnet import AlexNet 
 
 from load_data import Load_data
 
-data = Load_data("data");
+from result import Result
 
-train_data, test_data, train_label, test_label = data.get_data();
+data = Load_data("data")
 
+result = Result("test")
 
-learning_rate = 0.01
-num_epochs = 10
-batch_size = 128
+train_data, train_label = data.get_data();
 
 
 
 # Network params
+learning_rate = 0.01
+num_epochs = 100
+batch_size = 128
+display_step = 10;
 dropout = 0.5
-num_classes = 9
+num_classes = 50
 train_layers = ['fc8', 'fc7', 'fc6']
 
 x = tf.placeholder(tf.float32, [batch_size, 227, 227, 3])
@@ -36,7 +40,6 @@ accuracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
 with tf.Session() as sess:
 
-    
     sess.run(tf.global_variables_initializer())
 
     step = 1;
@@ -56,11 +59,10 @@ with tf.Session() as sess:
         step += 1
     print ("Optimization Finished!")
 
+    pre = model.fc8.eval(feed_dict={x:test,keep_prob:0.5})
 
 
-
-
-
+result.get_result(pre);
 
 
 
