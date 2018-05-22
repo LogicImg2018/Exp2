@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 import numpy
+from sklearn.model_selection import train_test_split
 
 """
-这个文件交给 柴 完成
+这个文件交给 陈 完成
 """
 
 class Load_data(object):
@@ -41,6 +42,9 @@ class Load_data(object):
 		"""
 		下面是需要在已有的train_data，train_label中随即挑选batch_size个然后放在数组中返回
 		"""
+
+		X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = batch_size)
+
 		current_train_data = []
 
 		current_train_label = []
