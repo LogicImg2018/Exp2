@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 import numpy as np
+import glob as gb
+import cv2
+import pandas as pd
 
 class Result(object):
 	"""
@@ -11,7 +14,14 @@ class Result(object):
 		"""
 		通过test 获取test文件夹中的所有图片[n*227*227*3]
 		"""
-		self.test_data
+		img_path = gb.glob(path + "*.jpg")
+
+		self.test_data = [];
+		for pa in img_path:
+			img = cv2.imread(pa);
+			#print(img);
+			self.test_data.append(img);
+		return self.test_data
 
 	def get_data(self):
 		return self.test_data
@@ -22,8 +32,20 @@ class Result(object):
 		因此 pre是[n*50]的一个二维数组，
 		所以接下来要做的就是，把[50]的向量中最大的值所对应的数字取出来，按顺序放入result中
 		"""
+		row = len(pre);
+		col = len(pre[0])
 		result = [];
+		temp = 0;
+		for i in range(row):
+			for j in range(col):
+				if temp < pre[i][j]:
+					temp = pre[i][j];
+			result.append(temp);
+			temp = 0;
 		"""
 		假设我们已经得到了result，接下来
 		我们将result生成一个CSV文件，保存
 		"""
+		test = pd.DataFrame(data = result);
+		test.to_csv("test.csv")
+		
