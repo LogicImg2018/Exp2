@@ -10,7 +10,7 @@ VGG_MEAN = tf.constant([123.68, 116.779, 103.939], dtype=tf.float32)
 
 # 把图片数据转化为三维矩阵
 class ImageDataGenerator(object):
-    def __init__(self, images, labels, batch_size, num_classes, shuffle=True):
+    def __init__(self, images, labels, batch_size, num_classes, shuffle=False):
 
         self.img_paths = images
         self.labels = labels
