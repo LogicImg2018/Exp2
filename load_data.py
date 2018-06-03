@@ -24,13 +24,13 @@ class Load_data(object):
 	def get_data(self):
 		# Get image_path and label_path
 
-		train_image_path = 'training/*/'  # 指定训练集数据路径（根据实际情况指定训练数据集的路径）
+		train_image_path = train+'/*/'  # 指定训练集数据路径（根据实际情况指定训练数据集的路径）
 
 		label_path = []
 
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(train_image_path + '*.jpg')).tolist()
-		image_dir = os.listdir('training')
+		image_dir = os.listdir(train)
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
