@@ -36,12 +36,15 @@ class Result(object):
 		col = len(pre[0])
 		result = [];
 		temp = 0;
+		flag = 0;
 		for i in range(row):
 			for j in range(col):
 				if temp < pre[i][j]:
 					temp = pre[i][j];
-			result.append(temp);
+					flag = j;
+			result.append(flag);
 			temp = 0;
+			flag = 0;
 		"""
 		假设我们已经得到了result，接下来
 		我们将result生成一个CSV文件，保存
