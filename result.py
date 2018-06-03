@@ -14,14 +14,14 @@ class Result(object):
 		"""
 		通过test 获取test文件夹中的所有图片[n*227*227*3]
 		"""
-		img_path = gb.glob(path + "*.jpg")
+		img_path = gb.glob(test + "*.jpg")
 
 		self.test_data = [];
 		for pa in img_path:
 			img = cv2.imread(pa);
 			#print(img);
 			self.test_data.append(img);
-		return self.test_data
+		
 
 	def get_data(self):
 		return self.test_data
@@ -47,5 +47,5 @@ class Result(object):
 		我们将result生成一个CSV文件，保存
 		"""
 		test = pd.DataFrame(data = result);
-		test.to_csv("test.csv")
+		test.to_csv("result.csv")
 		
