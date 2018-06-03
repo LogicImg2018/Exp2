@@ -2,3 +2,5 @@ bvlc_alexnet.npy
 base_classes.txt
 training/
 Exp2.pptx
+test/
+__pycache__/
