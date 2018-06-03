@@ -27,17 +27,20 @@ class Load_data(object):
 		image_path = np.array(glob.glob(train_image_path + '*.jpg')).tolist()
 		image_dir = os.listdir('training')
 		for i in range(len(image_path)):
+
 			for dir_index in range(len(image_dir)):
 				if image_dir[dir_index] in image_path[i]:
 					label_path.append(dir_index)
 
 		self.num_classes = len(image_dir)
-
+		for x in image_dir:
+			print(x)
+		print (self.num_classes)
 		self.tr_data = ImageDataGenerator(
 		    images = image_path,
 		    labels = label_path,
 		    batch_size = self.batch_size,
-		    num_classes = self.num_classes)	
+		    num_classes = self.num_classes)
 
 		with tf.name_scope('input'):
 		    # 定义迭代器

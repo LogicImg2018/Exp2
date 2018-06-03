@@ -7,18 +7,18 @@ from load_data import Load_data
 
 from result import Result
 
-data = Load_data("data")
+data = Load_data("training")
 
 result = Result("test")
 
-train_data, train_label = data.get_data();
+# train_data, train_label = data.get_data();
 
 
 
 # Network params
 learning_rate = 0.01
-num_epochs = 100
-batch_size = 128
+num_epochs = 10
+batch_size = 4
 display_step = 10;
 dropout = 0.5
 num_classes = 50
@@ -45,14 +45,14 @@ with tf.Session() as sess:
     step = 1;
     print(step,batch_size,num_epochs);
     while step < num_epochs:
-        batch_xs , batch_ys = get_batch_data (batch_size)
+        batch_xs , batch_ys = data.get_batch_data (batch_size)
         
         # batch_xs, batch_ys = next_batch(batch_size)
         # 获取批数据
        
         sess.run(optimizer, feed_dict={x: batch_xs, y: batch_ys, keep_prob: dropout})
         if step % display_step == 0:
-           
+
             acc = sess.run(accuracy, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.})
             loss = sess.run(cost, feed_dict={x: batch_xs, y: batch_ys, keep_prob: 1.})
             print ("Iter " + str(step*batch_size) + ", Minibatch Loss= " + "{:.6f}".format(loss) + ", Training Accuracy = " + "{:.5f}".format(acc))
