@@ -118,7 +118,7 @@ with tf.Session() as sess:
             max_step = 2500.0/batch_size
             pre = model.fc8.eval(feed_dict={x:x_test[0:batch_size],keep_prob:1.})
 
-            for i in range(2,int(max_step)):
+            for i in range(2,int(max_step+1)):
                 # print(i)
                 pre_1 = model.fc8.eval(feed_dict={x:x_test[batch_size*(i-1):batch_size*i],keep_prob:1.})
                 pre = np.concatenate((pre,pre_1),axis = 0)
