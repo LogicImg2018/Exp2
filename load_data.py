@@ -50,7 +50,8 @@ class Load_data(object):
 		    images = image_path,
 		    labels = label_path,
 		    batch_size = batch_size,
-		    num_classes = num_classes)
+		    num_classes = num_classes,
+		    shuffle=True)
 
 		with tf.name_scope('input'):
 		    # 定义迭代器
