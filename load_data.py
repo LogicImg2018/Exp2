@@ -11,12 +11,13 @@ class Load_data(object):
 	train 储存训练图片的文件夹名称
 	在初始化的过程建立图像和label数组 并分别存储
 	"""
-	def __init__(self, train):
+	def __init__(self, train,test):
 		super(Load_data, self).__init__()
 		self.train = train
+		self.test = test
 		self.sess = tf.Session()
 		self.batch_size = 4
-		self.num_classes = 5
+		self.num_classes = 50
 
 	"""
 	get_data(); 用于返回 图像和label数组
@@ -24,13 +25,13 @@ class Load_data(object):
 	def get_data(self):
 		# Get image_path and label_path
 
-		train_image_path = train+'/*/'  # 指定训练集数据路径（根据实际情况指定训练数据集的路径）
+		train_image_path = self.train+'/*/'  # 指定训练集数据路径（根据实际情况指定训练数据集的路径）
 
 		label_path = []
 
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(train_image_path + '*.jpg')).tolist()
-		image_dir = os.listdir(train)
+		image_dir = os.listdir(self.train)
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
@@ -39,8 +40,10 @@ class Load_data(object):
 
 		num_classes = len(image_dir)
 		batch_size = len(image_path)
+		numb = 0
 		for x in image_dir:
-			print(x)
+			print(numb,x)
+			numb +=1
 		print (num_classes)
 		tr_data = ImageDataGenerator(
 		    images = image_path,
@@ -63,13 +66,13 @@ class Load_data(object):
 		return train_data, train_label
 
 	def get_test_data(self):
-		test_image_path = 'test/*/' 
+		test_image_path = self.test+'/' 
 
 		test_label_path = []
 
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(test_image_path + '*.jpg')).tolist()
-		image_dir = os.listdir('test')
+		image_dir = os.listdir(self.test)
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
@@ -78,8 +81,8 @@ class Load_data(object):
 
 		num_classes = len(image_dir)
 		batch_size = len(image_path)
-		for x in image_dir:
-			print(x)
+		# for x in image_dir:
+		# 	print(x)
 		print (num_classes)
 		test_data = ImageDataGenerator(
 		    images = image_path,
@@ -98,7 +101,7 @@ class Load_data(object):
 		    next_batch = iterator.get_next()
 		self.sess.run(testing_initalize)
 		test_data, test_label = self.sess.run(next_batch)
-		return test_data, test_label
+		return test_data
 
 	"""
 	get_batch_data 在已有的数据中，随即挑选batch_size个图像 和 label 并返回

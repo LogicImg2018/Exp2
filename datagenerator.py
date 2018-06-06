@@ -23,6 +23,7 @@ class ImageDataGenerator(object):
 
         self.img_paths = convert_to_tensor(self.img_paths, dtype=dtypes.string)
         self.labels = convert_to_tensor(self.labels, dtype=dtypes.int32)
+
         data = tf.data.Dataset.from_tensor_slices((self.img_paths, self.labels))
         data = data.map(self._parse_function_train)
 
