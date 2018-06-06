@@ -32,6 +32,7 @@ class Load_data(object):
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(train_image_path + '*.jpg')).tolist()
 		image_dir = os.listdir(self.train)
+		image_dir.sort(key= lambda x:int(x[:3]))
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
@@ -73,6 +74,8 @@ class Load_data(object):
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(test_image_path + '*.jpg')).tolist()
 		image_dir = os.listdir(self.test)
+		image_dir.sort(key= lambda x:int(x[8:-4]))  # read testing_1.jpg
+		# image_dir.sort(key= lambda x:int(x[:3]))  
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
