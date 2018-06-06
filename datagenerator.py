@@ -17,6 +17,7 @@ class ImageDataGenerator(object):
         self.num_classes = num_classes
         self.data_size = len(self.labels)
         self.pointer = 0
+        self.t_data = []
 
         if shuffle:
             self._shuffle_lists()
@@ -26,7 +27,14 @@ class ImageDataGenerator(object):
 
         data = tf.data.Dataset.from_tensor_slices((self.img_paths, self.labels))
         data = data.map(self._parse_function_train)
-
+        
+        # iterator = data.make_one_shot_iterator()
+        # one_element = iterator.get_next()
+        # with tf.Session() as sess:
+        #     for i in range(self.data_size):
+        #         x, y = sess.run(one_element)
+        #         self.t_data.append(x)
+        
         data = data.batch(batch_size)
 
         self.data = data

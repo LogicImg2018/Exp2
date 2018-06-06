@@ -73,9 +73,11 @@ class Load_data(object):
 
 		# 打开训练数据集目录，读取全部图片，生成图片路径列表
 		image_path = np.array(glob.glob(test_image_path + '*.jpg')).tolist()
+		image_path.sort(key= lambda x:int(x[16:-4]))  # read testing_1.jpg
 		image_dir = os.listdir(self.test)
 		image_dir.sort(key= lambda x:int(x[8:-4]))  # read testing_1.jpg
-		# image_dir.sort(key= lambda x:int(x[:3]))  
+		for x in image_dir:
+			print(x) 
 		for i in range(len(image_path)):
 
 			for dir_index in range(len(image_dir)):
@@ -84,15 +86,13 @@ class Load_data(object):
 
 		num_classes = len(image_dir)
 		batch_size = len(image_path)
-		# for x in image_dir:
-		# 	print(x)
-		print (num_classes)
+		for x in image_path:
+			print(x)
 		test_data = ImageDataGenerator(
 		    images = image_path,
 		    labels = test_label_path,
 		    batch_size = batch_size,
 		    num_classes = num_classes)
-
 		with tf.name_scope('input'):
 		    # 定义迭代器
 		    iterator = tf.data.Iterator.from_structure(test_data.data.output_types,
@@ -105,6 +105,7 @@ class Load_data(object):
 		self.sess.run(testing_initalize)
 		test_data, test_label = self.sess.run(next_batch)
 		return test_data
+		# return test_data.t_data
 
 	"""
 	get_batch_data 在已有的数据中，随即挑选batch_size个图像 和 label 并返回
