@@ -25,11 +25,11 @@ result = Result("test")
 
 
 
-batch_size = 256
+batch_size = 125
 
 num_classes = data.num_classes
 
-epochs = 60 #设置迭代次数
+epochs = 300 #设置迭代次数
 
 img_rows, img_cols = 227, 227
 

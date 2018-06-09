@@ -33,8 +33,8 @@ acm = np.size(train_label,0)
 a=[]
 
 # Network params
-learning_rate = 0.01
-num_epochs = 100
+learning_rate = 0.03
+num_epochs = 300
 batch_size = 125
 display_step = 4;
 dropout = 0.5
